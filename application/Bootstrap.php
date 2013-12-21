@@ -17,6 +17,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         if((!empty($myRoutes)) && (empty($uriArray[0]))) {
             // No controller is specified, hence redirect to home controller (Home page has session handling wherein if user is not logged in he is redirected to the login page)
             $routes = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routing.ini', 'home');
+			$uriArray[1] = null;
         }
 
         if((!empty($uriArray[1]))) {
@@ -36,9 +37,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         if(($routes === null)) {
             // Invalid controller
             $routes = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routing.ini', 'error');
+            $uriArray[1] = null;
         }
 
-        $router->addConfig($routes, 'routes');
+        $router->addConfig($routes, 'routes', $uriArray[1]);
     }
 
     public function checkMatchingUri($uri, $checkUri) {
