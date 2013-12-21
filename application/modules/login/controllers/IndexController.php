@@ -15,7 +15,6 @@ class IndexController extends Zend_Controller_Action {
         echo '<br /> Password: ';
         print_r($password);
         echo '</pre>';
-        exit;
     }
 
 }

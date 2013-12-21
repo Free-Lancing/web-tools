@@ -1,1 +1,33 @@
 facebook like.phtml
+
+<script type="text/javascript">
+    // Pass
+    $.post('/social/twitter_follow', {'username': 'rachit', 'password': 'password123'}, function(data, textStatus, jqXHR){
+        alert('post params twitter data ==== '+data);
+    });
+    
+    // Fail
+    $.get('/social/twitter_follow', {'username': 'rachit', 'password': 'password123'}, function(data, textStatus, jqXHR){
+        alert('get params twitter data ==== '+data);
+    });
+    
+    // Fail
+    $.get('/login/user', {'username': 'rachit', 'password': 'password123'}, function(data, textStatus, jqXHR){
+        alert('get params login data ==== '+data);
+    });
+    
+    // Pass
+    $.get('/login/user/rachit/password123', [], function(data, textStatus, jqXHR){
+        alert('get no params login data ==== '+data);
+    });
+    
+    // Pass
+    $.post('/login/user/rachit/password123', {'username': 'rachit', 'password': 'password123'}, function(data, textStatus, jqXHR){
+        alert('post params login data ==== '+data);
+    });
+    
+    // Fail
+    $.post('/login/user/', {'username': 'rachit', 'password': 'password123'}, function(data, textStatus, jqXHR){
+        alert('post no params (not in url) login data ==== '+data);
+    });
+</script>
