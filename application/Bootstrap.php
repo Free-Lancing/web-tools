@@ -14,19 +14,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $myRoutes = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routing.ini');
 
         // Use this only if your require to redirect to error if invalid url and redirect to home page if just url specified without any controller or action 
-        if((!empty($myRoutes)) && (empty($uriArray[0]))) {
+        if ((!empty($myRoutes)) && (empty($uriArray[0]))) {
             // No controller is specified, hence redirect to home controller (Home page has session handling wherein if user is not logged in he is redirected to the login page)
             $routes = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routing.ini', 'home');
-			$uriArray[1] = null;
+            $uriArray[1] = null;
         }
 
-        if((!empty($uriArray[1]))) {
+        if ((!empty($uriArray[1]))) {
             // Current url has the first key
-            if(($routes === null) && (!empty($myRoutes)) && (!empty($uriArray)) && (!empty($myRoutes->{$uriArray[0]})) && (!empty($myRoutes->{$uriArray[0]}->routes->{$uriArray[1]}))) {
+            if (($routes === null) && (!empty($myRoutes)) && (!empty($uriArray)) && (!empty($myRoutes->{$uriArray[0]})) && (!empty($myRoutes->{$uriArray[0]}->routes->{$uriArray[1]}))) {
                 // routing.ini file found and not empty, current node found, sub node found
                 $uriMatched = $this->checkMatchingUri($uri, $myRoutes->{$uriArray[0]}->routes->{$uriArray[1]}->route);
 
-                if($uriMatched) {
+                if ($uriMatched) {
                     // urls are matching and as per the set up in the routing.ini
                     $routes = $myRoutes->{$uriArray[0]};
                 }
@@ -34,13 +34,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
 
 
-        if(($routes === null)) {
+        if (($routes === null)) {
             // Invalid controller
             $routes = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routing.ini', 'error');
             $uriArray[1] = null;
         }
 
         $router->addConfig($routes, 'routes', $uriArray[1]);
+        $fc = Zend_Controller_Front::getInstance();
+        $fc->registerPlugin(new Plugin_AjaxCheck());
     }
 
     public function checkMatchingUri($uri, $checkUri) {

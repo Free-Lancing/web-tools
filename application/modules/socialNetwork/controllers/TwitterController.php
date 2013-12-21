@@ -1,7 +1,7 @@
 <?php
 
 class SocialNetwork_TwitterController extends Zend_Controller_Action {
-
+    
     /**
      * @url http://web-tools.local/social/twitter_follow
      */
@@ -11,7 +11,6 @@ class SocialNetwork_TwitterController extends Zend_Controller_Action {
         echo '<pre>data == ';
         print_r($data);
         echo '</pre>';
-        exit;
     }
 
 }
