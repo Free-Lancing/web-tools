@@ -23,11 +23,11 @@
  * @param {string} url : url to be called via post
  * @param {array} params : params to be send via post ajax call
  * @param {function} __callback : function to be called on success
- * @param {string} dataType : json/html text wont be used. Default is html
+ * @param {string} dataType : json/html only. "text" wont be used. Default is html
  * @returns {Boolean} true
  */
 function __post(url, params, __callback, dataType) {
-    dataType = (dataType === null || dataType === undefined) ? 'html' : dataType;
+    dataType = (dataType === null || dataType === undefined || ((dataType !== 'html') && (dataType !== 'json'))) ? 'html' : dataType;
     
     $.post(url, params, function(data, textStatus, jqXHR) {
         __callback(data);
@@ -43,11 +43,11 @@ function __post(url, params, __callback, dataType) {
  * @param {string} url : url to be called via get
  * @param {array} params : params to be send via get ajax call
  * @param {function} __callback : function to be called on success
- * @param {string} dataType : json/html text wont be used. Default is html
+ * @param {string} dataType : json/html only . "text" wont be used. Default is html
  * @returns {Boolean} true
  */
 function __get(url, params, __callback, dataType) {
-    dataType = (dataType === null || dataType === undefined) ? 'html' : dataType;
+    dataType = (dataType === null || dataType === undefined || ((dataType !== 'html') && (dataType !== 'json'))) ? 'html' : dataType;
     
     $.get(url, params, function(data, textStatus, jqXHR) {
         __callback(data);

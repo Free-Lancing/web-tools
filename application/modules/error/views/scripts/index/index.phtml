@@ -1,5 +1,4 @@
 <?php
-$error = $this->error;
-echo 'You have reached ' . $error['params']['error'] . ' page';
-http_response_code($error['params']['error']);
+$errorCode = $this->errorCode;
+echo 'You have reached ' . $errorCode . ' page';
 ?>
