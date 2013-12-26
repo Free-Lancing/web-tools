@@ -53,6 +53,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     protected function _initActionHelpers() {
         Zend_Controller_Action_HelperBroker::addPath(APPLICATION_PATH . '/../library/Helpers', 'Helper_');
     }
+    
+    protected function _initDatabase() {
+        //Loading configuration from ini file
+        $configuration = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', getenv('APPLICATION_ENV'));
+
+        //Creating the database handler from the loaded ini file
+        $dbAdapter = Zend_Db::factory($configuration->resources->db);
+
+        // Lets define the newly created handler as our default database handler
+        Zend_Db_Table_Abstract::setDefaultAdapter($dbAdapter);
+
+        // Lets add the configurations and the database handler to Registry to use in future
+        $registry = Zend_Registry::getInstance();
+        $registry->configuration = $configuration;
+        $registry->dbAdapter = $dbAdapter;
+
+        // Now that we have the values on the Registry, lets cleanuo the variables from the script scope
+        unset($dbAdapter, $registry, $configuration);
+    }
 
     public function checkMatchingUri($uri, $checkUri) {
         // with multiple params /:username/:password & normal without any params
