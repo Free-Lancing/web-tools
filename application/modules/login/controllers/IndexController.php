@@ -10,8 +10,12 @@ class IndexController extends Zend_Controller_Action {
         $userName = $request->getParam('username');
         $password = $request->getParam('password');
         $loginModel = new Login_Model_LoginDbFunctions();
-        $sql = $loginModel->userDetails($userName);
-        $this->_helper->logs->writeLog('sql', $sql);
+        $userDetails = $loginModel->userDetails($userName, $password);
+        $this->_helper->logs->writeLog('user details', $userDetails);
+        
+        if (empty($userDetails)) {
+            // Invalid user
+        }
         echo 'index action - login';
         echo '<pre> Username: ';
         print_r($userName);
