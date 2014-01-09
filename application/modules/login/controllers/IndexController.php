@@ -1,6 +1,6 @@
 <?php
 
-class IndexController extends Zend_Controller_Action {
+class Login_IndexController extends Zend_Controller_Action {
 
     /**
      * @url : http://web-tools.local/login/user/{user_name}/{password}

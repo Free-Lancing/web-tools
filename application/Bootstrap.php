@@ -42,12 +42,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $uriArray[1] = null;
         }
 
-        $router->addConfig($routes, 'routes', $uriArray[1]);
-    }
+            $router->addConfig($routes, 'routes', $uriArray[1]);
+        }
 
     protected function _initFrontControllerPlugins() {
         $frontControllerInstance = Zend_Controller_Front::getInstance();
-        $frontControllerInstance->registerPlugin(new Plugin_AjaxCheck());
+        $frontControllerInstance->registerPlugin(new Plugin_PreDispatchCheck());
     }
 
     protected function _initActionHelpers() {

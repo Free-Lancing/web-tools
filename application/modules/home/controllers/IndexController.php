@@ -1,6 +1,6 @@
 <?php
 
-class Home_IndexController extends Zend_Controller_Action {
+class IndexController extends Zend_Controller_Action {
 
     /**
      * 

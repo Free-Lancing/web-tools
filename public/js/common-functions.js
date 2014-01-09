@@ -1,11 +1,14 @@
-/*$.ajaxSetup({
+$.ajaxSetup({
     error: function(jqXHR, exception) {
         if (jqXHR.status === 0) {
-            alert('Not connect.\n Verify Network.');
+            alert('Not connected.\n Verify Network.');
         } else if (jqXHR.status == 404) {
             alert('Requested page not found. [404]');
         } else if (jqXHR.status == 500) {
             alert('Internal Server Error [500].');
+        } else if (jqXHR.status === 401) {
+            alert('Authorization failed. Please Re-login [401].');
+             window.location.reload(true);
         } else if (exception === 'parsererror') {
             alert('Requested JSON parse failed.');
         } else if (exception === 'timeout') {
@@ -16,7 +19,7 @@
             alert('Uncaught Error.\n' + jqXHR.responseText);
         }
     }
-});*/
+});
 
 /**
  * 
@@ -28,13 +31,11 @@
  */
 function __post(url, params, __callback, dataType) {
     dataType = (dataType === null || dataType === undefined || ((dataType !== 'html') && (dataType !== 'json'))) ? 'html' : dataType;
-    
+
     $.post(url, params, function(data, textStatus, jqXHR) {
         __callback(data);
-    }, dataType).fail(function(jqXHR, textStatus, errorThrown) {
-        alert(jqXHR.status)
-    });
-    
+    }, dataType);
+
     return true;
 }
 
@@ -48,7 +49,7 @@ function __post(url, params, __callback, dataType) {
  */
 function __get(url, params, __callback, dataType) {
     dataType = (dataType === null || dataType === undefined || ((dataType !== 'html') && (dataType !== 'json'))) ? 'html' : dataType;
-    
+
     $.get(url, params, function(data, textStatus, jqXHR) {
         __callback(data);
     }, dataType).fail(function(jqXHR, textStatus, errorThrown) {
